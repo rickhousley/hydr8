@@ -1,0 +1,12 @@
+INFO:root:--------------------Logger Initiated--------------------
+INFO:root:RickyHousley@gmail.com,RH11235813Rh,bug-r,57798f4b-2b1c-4cea-84f1-ac45bf6a1069
+INFO:urllib3.connectionpool:Starting new HTTPS connection (1): dashboard.us.enableiot.com
+INFO:root:--------------------Logger Initiated--------------------
+INFO:root:rickyhousley@gmail.com,Rh11235813Rh,bug-r,57798f4b-2b1c-4cea-84f1-ac45bf6a1069
+INFO:urllib3.connectionpool:Starting new HTTPS connection (1): dashboard.us.enableiot.com
+INFO:urllib3.connectionpool:Starting new HTTPS connection (1): dashboard.us.enableiot.com
+INFO:root:--------------------Logger Initiated--------------------
+INFO:root:Loaded info rickyhousley@gmail.com,Rh11235813Rh,bug-r,57798f4b-2b1c-4cea-84f1-ac45bf6a1069
+INFO:urllib3.connectionpool:Starting new HTTPS connection (1): dashboard.us.enableiot.com
+INFO:root:user token:eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJqdGkiOiI1ZDU1M2Y1NC0wNmQ5LTRlZTEtOWQ1My1mYWY3YjdiMTQ3MDYiLCJpc3MiOiJodHRwOi8vZW5hYmxlaW90LmNvbSIsInN1YiI6IjU1MDQ0YWY3OGMwZWZiZmM1NTQ4ZjUwMSIsImV4cCI6IjIwMTUtMDMtMTVUMjE6MzY6MTIuNjY0WiJ9.ddxiAvJV-PPLZB72qKevkIktKDYCGs5H-a4rPtG1jXyBZWdg4fwPgKS9l0Wni1V_P0RKR4_sWPItcArL5PwsiicLf86up1HJiknAoPW8fJhGO_tkPcWQ9yQ70HU1aQeEa5B4ID-cQjgo8yslJ_4MJ82zqJr7nRKrx4bXi8bfaz2yS58STTqI1qCTjPab91AQD1bKAdUMsv7QLIUOB-Ewr_dABYKbsBSS_4vUTafua2Ymg7Cd78s_I_E6bbWTr6lbzmcvqQOyEKwY0ZRqVO9TocNUr9j_CX4qjfJxbP4TRG2foVrPAap_LjJsn3KVEjsfqxwz6n13mYir3SMr1wHW6g
+INFO:urllib3.connectionpool:Starting new HTTPS connection (1): dashboard.us.enableiot.com
