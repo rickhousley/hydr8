@@ -1,3 +1,19 @@
+Skip to content
+ This repository
+Explore
+Gist
+Blog
+Help
+Rick Housley rickhousley
+ 
+ Watch 104
+  Star 24
+  Fork 20
+enableiot/iotkit-samples
+ branch: master  iotkit-samples/api/python/iotkit_client.py
+Marek Tomczewskimtomczew on Jan 20 DP-3506 Added or updated CP
+2 contributors Patrick HolmesMarek Tomczewski
+RawBlameHistory    Executable File  353 lines (301 sloc)  13.084 kb
 #!/usr/bin/env python
 # Copyright (c) 2015, Intel Corporation
 #
@@ -71,16 +87,16 @@ proxies = {
     # "https": "http://proxy.example.com:8080"
 }
 
-username = ""
-password = ""
-account_name = ""
+username = "my_email_address@example.com"
+password = "myPassword"
+account_name = "myAccountName"
 
 #this will create a device with this id - error if it already exists
-device_id = ""
+device_id = "57798f4b-2b1c-4cea-84f1-ac45bf6ae9a2"
 
 # this will create {observations_per_hour} observations per hour for {days_of_data} days
-observations_per_hour = 60
-days_of_data = 90
+observations_per_hour = 1
+days_of_data = 1
 
 verify = True # whether to verify certs
 #####################################
@@ -92,6 +108,64 @@ device_name = "Device-{0}".format(device_id)
 g_user_token = ""
 g_device_token = ""
 
+
+def main():
+    global g_user_token, g_device_token
+
+    # get an authentication token for use in the following API calls.
+    # It will be put in every header by get_user_headers()
+    g_user_token = get_token(username, password)
+
+    # get my user_id (uid) within the Intel IoT Analytics Platform
+    uid = get_user_id()
+    print "UserId: {0}".format(uid)
+
+    # for all the accounts I have access to, find the first account 
+    # with the name {account_name} and return the account_id (aid)
+    aid = get_account_id(uid, account_name)
+    print "AccountId: {0}".format(aid)
+
+    # create a new device within the account - error if a device with
+    # device_id already exists in the system even if it's in another account
+    create_device(aid, device_id, device_name)
+
+    # refresh the activation code. It can be used any number of times
+    # in the next 60 minutes to activate devices.
+    ac = generate_activation_code(aid)
+    print "Activation code: {0}".format(ac)
+
+    # activate the device. This returns an authentication token that the device
+    # can use to register time series and send observations. It will be put in
+    # every header for device calls by get_device_headers(). You MUST persist
+    # this is you want to send additional observations at a later time.
+    g_device_token = activate(aid, device_id, ac)
+
+    # this registers a time series for this device. The component will have a
+    # Component Type of "temperature.v1.0" which defines the data type of the
+    # value, the format, the unit of measure, etc. This way, we don't need to
+    # specify all of that here.  
+    # Within the scope of the device, this time series will be named "temp".
+    # This call returns the component_id (cid) which is globally unique
+    # within the Intel IoT Analytics platform.
+    cid = create_component(aid, device_id, "temperature.v1.0", "temp")
+    print "ComponentID (cid): {0}".format(cid)
+
+    # create some random observations around 23 +/- 1 in the new {cid} time series.
+    create_observations(aid, device_id, cid, 23, 1)
+
+    # read back the observation we just created.
+    o = get_observations(aid, device_id, cid)
+    print_observation_counts(o)
+
+    # create a second time series for humidity.
+    cid2 = create_component(aid, device_id, "humidity.v1.0", "humidity")
+    print "ComponentID (cid): {0}".format(cid2)
+
+    # create some random observations around 21 +/- 1
+    create_observations(aid, device_id, cid2, 21, 1)
+
+    o2 = get_observations(aid, device_id, cid2)
+    print_observation_counts(o2)
 
 
 def get_user_headers():
@@ -240,7 +314,7 @@ def create_observations(account_id, device_id, cid, mid, rang):
     # n observation per hour per day
     for i in range(int(days_of_data * 24 * observations_per_hour) + 1):
         val = round(mid - rang + (random.random() * rang * 2), 1)  # random number from mid-range to mid+range
-        #print "val={0}".format(val)
+        print "val={0}".format(val)
         o = {
             "componentId": cid,
             "on": start + i * (60 / observations_per_hour) * 60 * 1000,
@@ -293,3 +367,5 @@ def print_observation_counts(js):  # js is result of /accounts/{account}/data/se
 
 if __name__ == "__main__":
     main()
+Status API Training Shop Blog About
+© 2015 GitHub, Inc. Terms Privacy Security Contact
