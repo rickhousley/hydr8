@@ -7,6 +7,9 @@ import sys
 import json
 import uuid
 
+#Hydr8 Url
+hurl = '192.168.7.2'
+
 
 #Resistor in circuit
 RESINSERIES = 560
@@ -57,6 +60,7 @@ REPORT_PERIOD = 0.1
 
 
 def main():
+    checkHydration()
     global g_user_token, g_device_token
     logging.basicConfig(filename='log.log', level=logging.INFO)
     logging.info('--------------------Logger Initiated--------------------')
@@ -100,7 +104,6 @@ def main():
         create_observation(aid, device_id, cid)
         print i
 
-    print 'HERE'
     # while True:        
     #     print '---'
     #     averageBuf = []    
@@ -130,8 +133,21 @@ def main():
 #     g_user_token = ""
 #     g_device_token = ""
 
-#def triggerDrinkLight():
+def checkHydration():
+    """ make post request to server asking if should drink """
+    #Http headers
+    h = {
 
+    }
+    r = requests.post(hurl, headers=h)
+
+    callback = True
+    if callback:
+        x = mraa.Gpio(13)
+        x.dir(mraa.DIR_OUT)
+        x.write(1)
+        time.sleep(2)
+        x.write(0)
 
 def getLiquidLevel():
     """ Get's value from the sensor and does math"""    
